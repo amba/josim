@@ -1,0 +1,36 @@
+
+* DC_SFQ converter
+* NEW RSFQ CIRCUITS S.V. Polonsky et al.
+* See Fig 3a
+.subckt DC_SFQ 10
+.param idc_in=500u
+.param ibias1=400u
+.param ibias2=380u
+.param tstep=100p
+IDC    0          1          pwl(0    0  tstep  idc_in 2*tstep idc_in 3*tstep 0 4*tstep 0 5*tstep idc_in 6*tstep idc_in 7*tstep 0 8*tstep 0 9*tstep idc_in 10*tstep idc_in 11*tstep 0)
+IBIAS1   0         5          pwl(0 0 5p ibias1)
+IBIAS2   0         8          pwl(0 0 5p ibias2)
+B1      3         4           jjmod
+B2      2         4           jjmod
+B3      4         0           jjmod
+B4      6         0           jjmod
+B5      7         0           jjmod
+B6      9         0           jjmod
+L1      1         3           1.4p
+L2      1         2           1.3p
+L3      2         0           2.5p
+L4      4         5           0.4p
+L5      5         6           1.2p
+L6      6         7           2.4p
+L7      7         8           2p
+L8      8         9           2p
+L9      9         10          4p
+.model jjmod jj(rtype=1, vg=1mV, cap=1fF, r0=10, rN=10, icrit=250uA)
+.ends
+
+XIN DC_SFQ 1
+ROUT 1 0 100
+.tran 0.1p 1100p 0 0.1p
+.print DEVI IDC.XIN
+.print PHASE B6.XIN
+.print DEVI ROUT
