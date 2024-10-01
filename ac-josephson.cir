@@ -1,0 +1,16 @@
+.param vdc_in=0.1
+.param tstep=10000p
+.param deltat=0.02p
+
+VDC    0          1          pwl(0    0  tstep  vdc_in 2*tstep 0)
+R1     1          2          300
+R2     3          2          300
+VAC    0          3          sin(0    vdc_in*0.5 300e9)
+B1      2         0           jjmod
+
+.model jjmod jj(rtype=1, vg=2.8e-3, cap=50fF, r0=200, rN=25, icrit=0.2e-3)
+
+.tran deltat 2*tstep
+.print DEVI B1
+.print DEVV B1
+# .print PHASE B1
