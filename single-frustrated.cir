@@ -1,0 +1,17 @@
+B1 0 1 jjmod
+B2 1 2 jjmod
+B3 2 3 jjmod
+B4 3 4 jjmod
+P1 0 4 pwl(0 0 2e-9 10 4e-9 0)
+
+.model jjmod jj(rtype=1, vg=100e-6, cap=1e-15, r0=400, rN=400, icrit=1e-6)
+
+.tran 0.1p 10e-9 0 0.1p
+.print DEVI B1
+.print DEVI B2
+.print DEVI B3
+.print DEVI B4
+.print PHASE B1
+.print PHASE B2
+.print PHASE B3
+.print PHASE B4
